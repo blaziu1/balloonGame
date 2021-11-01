@@ -1,6 +1,5 @@
 package pl.blazej.balloons;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,7 @@ public class Options extends JFrame implements ActionListener {
     Options() {
         super("Choose difficulty");
         setSize(600, 300);
-        setLocationRelativeTo((Component)null);
+        setLocationRelativeTo(null);
         setLayout(new GridLayout(1, 3));
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

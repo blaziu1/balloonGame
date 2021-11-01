@@ -1,6 +1,5 @@
 package pl.blazej.balloons;
 
-import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import javax.swing.JTextField;
 
 class Game {
     private static int map_num = 0;
-    private int NUM_OF_FILES = 2;
 
     void descendBallons(Vector<Balloon> Balloons, int descend) {
         for (Balloon b : Balloons)
@@ -22,12 +20,10 @@ class Game {
     }
 
     Vector<Balloon> addBallons() {
-        //MapLoad load = new MapLoad();
-        Vector<Balloon> balloons = new Vector();
+        Vector balloons = new Vector();
         Util util = new Util();
         try {
             return util.getBalloons("/maps/addedBalloons.txt");
-            //load.loadFile("/maps/addedBalloons.txt");
         } catch (IOException error) {
             System.out.println("ERROR: IOException /maps/addedBalloons.txt");
             return balloons;
@@ -43,9 +39,6 @@ class Game {
     }
 
     void nextLevel() {
-        /*File[] files = new File[this.NUM_OF_FILES];
-        files[0] = new File("files/secondMap.txt");
-        files[1] = new File("files/thirdMap.txt");*/
         String[] filenames = {"/maps/secondMap.txt", "/maps/thirdMap.txt"};
         try {
             Map map = new Map(filenames[map_num]);

@@ -2,7 +2,7 @@ package pl.blazej.balloons;
 
 import java.awt.Image;
 
-public class Balloon {
+class Balloon {
     Colour colour;
 
     private Image ballonImage;

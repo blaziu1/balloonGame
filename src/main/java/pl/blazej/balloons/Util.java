@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class Util {
+class Util {
 
     int getMapWidth(String mapFile) throws IOException {
         InputStream in = getClass().getResourceAsStream(mapFile);

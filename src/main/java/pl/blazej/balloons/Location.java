@@ -1,6 +1,6 @@
 package pl.blazej.balloons;
 
-public class Location {
+class Location {
     private int xCoordinate;
 
     private int yCoordinate;

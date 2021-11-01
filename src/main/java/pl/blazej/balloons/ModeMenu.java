@@ -16,7 +16,7 @@ public class ModeMenu extends JFrame implements ActionListener {
         super("Bubble Hit");
         setDefaultCloseOperation(3);
         setSize(350, 500);
-        setLocationRelativeTo((Component)null);
+        setLocationRelativeTo(null);
         setLayout(new GridLayout(3, 1));
         this.levelModeButton = new JButton("Level mode");
         this.arcadeModeButton = new JButton("Arcade mode");

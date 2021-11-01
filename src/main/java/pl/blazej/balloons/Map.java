@@ -15,7 +15,6 @@ public class Map extends JFrame implements KeyListener {
     private double xShift, yShift, xShift2, yShift2;
     private boolean stop = false;
     private Timer tim;
-    //private MapLoad load = new MapLoad();
     private Util util = new Util();
     private Vector<Balloon> bullets = new Vector<>();
     private Vector<Balloon> displayedBalloons = new Vector<>();
@@ -25,29 +24,25 @@ public class Map extends JFrame implements KeyListener {
     private int release = 0;
     private boolean pause = false;
     private Balloon bullet, secondBullet;
-    Image yellowBullet, purpleBullet, redBullet, greenBullet, blueBullet;
-    InputStream stream;
+    private Image yellowBullet, purpleBullet, redBullet, greenBullet, blueBullet;
+    private InputStream stream;
     private int width, height, mode;
 
     Map(String plikStartowy) throws IOException {
-        //this.load.loadFile(plikStartowy);
-        //this.displayedBalloons = this.load.ballons;
         this.width = util.getMapWidth(plikStartowy);
         this.height = util.getMapHeight(plikStartowy);
         this.mode = util.getMapMode(plikStartowy);
         this.displayedBalloons = util.getBalloons(plikStartowy);
-        //setSize(this.load.WIDTH * 60, this.load.HEIGHT * 60);
         setSize(this.width * 60, this.height * 60);
         setTitle("Bubble Hit");
-        setLocationRelativeTo((Component)null);
+        setLocationRelativeTo(null);
         addKeyListener(this);
         final Game game = new Game();
-        //this.bullet = new Balloon(this.load.getColour(6), this.load.WIDTH * 30 - 30, (this.load.HEIGHT - 2) * 60);
         this.bullet = new Balloon(util.getColour(6), this.width * 30 - 30, (this.height - 2) * 60);
-        //this.secondBullet = new Balloon(this.load.getColour(6), this.load.WIDTH * 60 - 60, (this.load.HEIGHT - 1) * 60);
         this.secondBullet = new Balloon(util.getColour(6), this.width * 60 - 60, (this.height -1 ) * 60);
         this.bullets.add(this.secondBullet);
         this.bullets.add(this.bullet);
+
         //stream = getClass().getResourceAsStream("/img/yellow.png");
         //yellowBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
         stream = getClass().getResourceAsStream("/img/purple.png");
@@ -110,7 +105,7 @@ public class Map extends JFrame implements KeyListener {
                     double s1 = Map.this.getWidth();
                     double s2 = (Map.this.width * 60);
                     double wsps = s1 / s2;
-                    double s3 = ((Balloon)Map.this.bullets.lastElement()).getxCoordinate() * wsps;
+                    double s3 = (Map.this.bullets.lastElement()).getxCoordinate() * wsps;
                     int su3 = (int)s3;
                     double s4 = clickCoordinates.getxCoordinate();
                     int su4 = (int)s4;
@@ -118,7 +113,7 @@ public class Map extends JFrame implements KeyListener {
                     double w1 = Map.this.getHeight();
                     double w2 = (Map.this.height * 60);
                     double wspw = w1 / w2;
-                    double w3 = ((Balloon)Map.this.bullets.lastElement()).getyCoordinate() * wspw;
+                    double w3 = (Map.this.bullets.lastElement()).getyCoordinate() * wspw;
                     int wu3 = (int)w3;
                     double w4 = clickCoordinates.getyCoordinate();
                     int wu4 = (int)w4;
@@ -130,7 +125,7 @@ public class Map extends JFrame implements KeyListener {
                     Map.this.yShift = Math.abs(Map.this.totShift * 1.0D / wspw * Map.this.indirecty);
                     Map.this.release = 1;
                     Map.this.stop = false;
-                    if (clickCoordinates.getyCoordinate() > ((Balloon)Map.this.bullets.lastElement()).getyCoordinate()) {
+                    if (clickCoordinates.getyCoordinate() > (Map.this.bullets.lastElement()).getyCoordinate()) {
                         Map.this.xShift = 0.0D;
                         Map.this.yShift = 0.0D;
                     }
@@ -141,36 +136,36 @@ public class Map extends JFrame implements KeyListener {
 
     private void movement() {
         int a = (this.width - 1) * 60;
-        if (((Balloon)this.bullets.lastElement()).getxCoordinate() >= 0 && ((Balloon)this.bullets.lastElement()).getxCoordinate() <= a) {
+        if ((this.bullets.lastElement()).getxCoordinate() >= 0 && (this.bullets.lastElement()).getxCoordinate() <= a) {
             if (this.xShift2 < 0)
-                ((Balloon)this.bullets.lastElement()).setxCoordinate((int)(((Balloon)this.bullets.lastElement()).getxCoordinate() - this.xShift));
+                (this.bullets.lastElement()).setxCoordinate((int)((this.bullets.lastElement()).getxCoordinate() - this.xShift));
             if (this.xShift2 > 0)
-                ((Balloon)this.bullets.lastElement()).setxCoordinate((int)(((Balloon)this.bullets.lastElement()).getxCoordinate() + this.xShift));
+                (this.bullets.lastElement()).setxCoordinate((int)((this.bullets.lastElement()).getxCoordinate() + this.xShift));
         }
-        if (((Balloon)this.bullets.lastElement()).getxCoordinate() <= 0) {
-            ((Balloon)this.bullets.lastElement()).setxCoordinate(0);
+        if ((this.bullets.lastElement()).getxCoordinate() <= 0) {
+            (this.bullets.lastElement()).setxCoordinate(0);
             this.xShift = -1.0D * this.xShift;
         }
-        if (((Balloon)this.bullets.lastElement()).getxCoordinate() >= a) {
-            ((Balloon)this.bullets.lastElement()).setxCoordinate(a);
+        if ((this.bullets.lastElement()).getxCoordinate() >= a) {
+            (this.bullets.lastElement()).setxCoordinate(a);
             this.xShift = -1.0D * this.xShift;
         }
-        if (((Balloon)this.bullets.lastElement()).getyCoordinate() >= 60 && ((Balloon)this.bullets.lastElement()).getyCoordinate() <= (this.height - 1) * 60) {
+        if ((this.bullets.lastElement()).getyCoordinate() >= 60 && (this.bullets.lastElement()).getyCoordinate() <= (this.height - 1) * 60) {
             if (this.yShift2 < 0) {
-                ((Balloon)this.bullets.lastElement()).setyCoordinate((int)(((Balloon)this.bullets.lastElement()).getyCoordinate() - this.yShift));
+                (this.bullets.lastElement()).setyCoordinate((int)((this.bullets.lastElement()).getyCoordinate() - this.yShift));
                 if (this.yShift2 > 0)
-                    ((Balloon)this.bullets.lastElement()).setyCoordinate((int)(((Balloon)this.bullets.lastElement()).getyCoordinate() + this.yShift));
+                    (this.bullets.lastElement()).setyCoordinate((int)((this.bullets.lastElement()).getyCoordinate() + this.yShift));
             }
-            if (((Balloon)this.bullets.lastElement()).getyCoordinate() <= 60 * this.counter2) {
-                ((Balloon)this.bullets.lastElement()).setyCoordinate(60 * this.counter2);
+            if ((this.bullets.lastElement()).getyCoordinate() <= 60 * this.counter2) {
+                (this.bullets.lastElement()).setyCoordinate(60 * this.counter2);
                 int n = 0;
-                while (((Balloon)this.bullets.lastElement()).getxCoordinate() > n * 60 + 30)
+                while ((this.bullets.lastElement()).getxCoordinate() > n * 60 + 30)
                     n++;
                 int dx = n * 60;
-                ((Balloon)this.bullets.lastElement()).setxCoordinate(dx);
+                (this.bullets.lastElement()).setxCoordinate(dx);
                 this.stop = true;
-                ((Balloon)this.bullets.lastElement()).setxCoordinate(((Balloon)this.bullets.lastElement()).getxCoordinate() / 60);
-                ((Balloon)this.bullets.lastElement()).setyCoordinate(((Balloon)this.bullets.lastElement()).getyCoordinate() / 60);
+                (this.bullets.lastElement()).setxCoordinate((this.bullets.lastElement()).getxCoordinate() / 60);
+                (this.bullets.lastElement()).setyCoordinate((this.bullets.lastElement()).getyCoordinate() / 60);
                 this.displayedBalloons.add(this.bullets.lastElement());
                 int variableq = 0;
                 int variablez = 0;
@@ -178,13 +173,13 @@ public class Map extends JFrame implements KeyListener {
                 int variablec = 0;
                 int variablezo = 0;
                 for (int k = 0; k < this.displayedBalloons.size(); k++) {
-                    if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.GREEN)
+                    if ((this.displayedBalloons.get(k)).colour == Colour.GREEN)
                         variablez = 10;
-                    if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.RED)
+                    if ((this.displayedBalloons.get(k)).colour == Colour.RED)
                         variablen = 100;
-                    if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.BLUE)
+                    if ((this.displayedBalloons.get(k)).colour == Colour.BLUE)
                         variablec = 1000;
-                    if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.YELLOW)
+                    if ((this.displayedBalloons.get(k)).colour == Colour.YELLOW)
                         variablezo = 10000;
                 }
                 variableq = variablez + variablen + variablec + variablezo;
@@ -199,25 +194,25 @@ public class Map extends JFrame implements KeyListener {
                 disappearing();
                 this.release = 0;
             }
-            if (((Balloon)this.bullets.lastElement()).getyCoordinate() >= (this.height - 1) * 60) {
-                ((Balloon)this.bullets.lastElement()).setyCoordinate((this.height - 1) * 60);
+            if ((this.bullets.lastElement()).getyCoordinate() >= (this.height - 1) * 60) {
+                (this.bullets.lastElement()).setyCoordinate((this.height - 1) * 60);
                 this.yShift = -1.0D * this.yShift;
             }
         }
         if (!isClear(this.displayedBalloons)) {
             int n = 0;
-            while (((Balloon)this.bullets.lastElement()).getxCoordinate() > n * 60 + 30)
+            while ((this.bullets.lastElement()).getxCoordinate() > n * 60 + 30)
                 n++;
             int dx = n * 60;
-            ((Balloon)this.bullets.lastElement()).setxCoordinate(dx);
+            (this.bullets.lastElement()).setxCoordinate(dx);
             int m = 0;
-            while (((Balloon)this.bullets.lastElement()).getyCoordinate() > m * 60 + 30)
+            while ((this.bullets.lastElement()).getyCoordinate() > m * 60 + 30)
                 m++;
             int dy = m * 60;
-            ((Balloon)this.bullets.lastElement()).setyCoordinate(dy);
+            (this.bullets.lastElement()).setyCoordinate(dy);
             this.stop = true;
-            ((Balloon)this.bullets.lastElement()).setxCoordinate(((Balloon)this.bullets.lastElement()).getxCoordinate() / 60);
-            ((Balloon)this.bullets.lastElement()).setyCoordinate(((Balloon)this.bullets.lastElement()).getyCoordinate() / 60);
+            (this.bullets.lastElement()).setxCoordinate((this.bullets.lastElement()).getxCoordinate() / 60);
+            (this.bullets.lastElement()).setyCoordinate((this.bullets.lastElement()).getyCoordinate() / 60);
             this.displayedBalloons.add(this.bullets.lastElement());
             int variableq = 0;
             int variablez = 0;
@@ -225,13 +220,13 @@ public class Map extends JFrame implements KeyListener {
             int variablec = 0;
             int variablezo = 0;
             for (int k = 0; k < this.displayedBalloons.size(); k++) {
-                if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.GREEN)
+                if ((this.displayedBalloons.get(k)).colour == Colour.GREEN)
                     variablez = 10;
-                if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.RED)
+                if ((this.displayedBalloons.get(k)).colour == Colour.RED)
                     variablen = 100;
-                if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.BLUE)
+                if ((this.displayedBalloons.get(k)).colour == Colour.BLUE)
                     variablec = 1000;
-                if (((Balloon)this.displayedBalloons.get(k)).colour == Colour.YELLOW)
+                if ((this.displayedBalloons.get(k)).colour == Colour.YELLOW)
                     variablezo = 10000;
             }
             variableq = variablez + variablen + variablec + variablezo;
@@ -250,7 +245,7 @@ public class Map extends JFrame implements KeyListener {
 
     private boolean isClear(Vector<Balloon> Balloons) {
         for (Balloon b : Balloons) {
-            if (Math.sqrt(Math.pow((b.getxCoordinate() * 60 - ((Balloon)this.bullets.lastElement()).getxCoordinate()), 2.0D) + Math.pow(Math.abs(b.getyCoordinate() * 60 - ((Balloon)this.bullets.lastElement()).getyCoordinate()), 2.0D)) <= 52.0D)
+            if (Math.sqrt(Math.pow((b.getxCoordinate() * 60 - (this.bullets.lastElement()).getxCoordinate()), 2.0D) + Math.pow(Math.abs(b.getyCoordinate() * 60 - (this.bullets.lastElement()).getyCoordinate()), 2.0D)) <= 52.0D)
                 return false;
         }
         return true;
@@ -275,28 +270,28 @@ public class Map extends JFrame implements KeyListener {
             indexArray[p] = -1;
         int counter3 = 0;
         for (int i1 = 0; i1 < this.displayedBalloons.size(); i1++) {
-            int polX1 = ((Balloon)this.displayedBalloons.get(i1)).getxCoordinate();
-            int polY1 = ((Balloon)this.displayedBalloons.get(i1)).getyCoordinate();
-            int polX2 = ((Balloon)this.displayedBalloons.lastElement()).getxCoordinate();
-            int polY2 = ((Balloon)this.displayedBalloons.lastElement()).getyCoordinate();
+            int polX1 = (this.displayedBalloons.get(i1)).getxCoordinate();
+            int polY1 = (this.displayedBalloons.get(i1)).getyCoordinate();
+            int polX2 = (this.displayedBalloons.lastElement()).getxCoordinate();
+            int polY2 = (this.displayedBalloons.lastElement()).getyCoordinate();
             int odlX = polX1 - polX2;
             int odlY = polY1 - polY2;
             double odlXY = Math.sqrt(Math.pow(odlX, 2.0D) + Math.pow(odlY, 2.0D));
-            if (odlXY == 1.0D && ((Balloon)this.displayedBalloons.lastElement()).colour == ((Balloon)this.displayedBalloons.get(i1)).colour) {
+            if (odlXY == 1.0D && (this.displayedBalloons.lastElement()).colour == (this.displayedBalloons.get(i1)).colour) {
                 indexArray[i1] = i1;
                 indexArray[this.displayedBalloons.size() - 1] = this.displayedBalloons.size() - 1;
                 for (int i3 = 0; i3 < 20; i3++) {
                     for (int i2 = 0; i2 < this.displayedBalloons.size(); i2++) {
                         if (indexArray[i2] != -1)
                             for (i1 = 0; i1 < this.displayedBalloons.size() - 1; i1++) {
-                                polX1 = ((Balloon)this.displayedBalloons.get(i1)).getxCoordinate();
-                                polY1 = ((Balloon)this.displayedBalloons.get(i1)).getyCoordinate();
-                                polX2 = ((Balloon)this.displayedBalloons.get(i2)).getxCoordinate();
-                                polY2 = ((Balloon)this.displayedBalloons.get(i2)).getyCoordinate();
+                                polX1 = (this.displayedBalloons.get(i1)).getxCoordinate();
+                                polY1 = (this.displayedBalloons.get(i1)).getyCoordinate();
+                                polX2 = (this.displayedBalloons.get(i2)).getxCoordinate();
+                                polY2 = (this.displayedBalloons.get(i2)).getyCoordinate();
                                 odlX = polX1 - polX2;
                                 odlY = polY1 - polY2;
                                 odlXY = Math.sqrt(Math.pow(odlX, 2.0D) + Math.pow(odlY, 2.0D));
-                                if (odlXY == 1.0D && ((Balloon)this.displayedBalloons.get(i1)).colour == ((Balloon)this.displayedBalloons.get(i2)).colour)
+                                if (odlXY == 1.0D && (this.displayedBalloons.get(i1)).colour == (this.displayedBalloons.get(i2)).colour)
                                     indexArray[i1] = i1;
                             }
                     }

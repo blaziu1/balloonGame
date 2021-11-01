@@ -1,6 +1,5 @@
 package pl.blazej.balloons;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,7 @@ public class MainMenu extends JFrame implements ActionListener {
         super("Bubble Hit");
         setDefaultCloseOperation(3);
         setSize(350, 500);
-        setLocationRelativeTo((Component)null);
+        setLocationRelativeTo(null);
         setLayout(new GridLayout(4, 1));
         this.start = new JButton("Start");
         this.opcje = new JButton("Options");

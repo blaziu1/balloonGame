@@ -19,7 +19,7 @@ class HighScore extends JFrame {
             }
         });
         setSize(350, 500);
-        setLocationRelativeTo((Component)null);
+        setLocationRelativeTo(null);
         Scanner fileIn = new Scanner(new File("files/highscore.txt"));
         JTextArea scores = new JTextArea();
         scores.setEditable(false);
