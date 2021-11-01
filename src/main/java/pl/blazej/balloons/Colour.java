@@ -1,5 +1,5 @@
 package pl.blazej.balloons;
 
 public enum Colour {
-    GREEN, RED, BLUE, YELLOW, EMPTY;
+    GREEN, RED, BLUE, PURPLE, EMPTY
 }

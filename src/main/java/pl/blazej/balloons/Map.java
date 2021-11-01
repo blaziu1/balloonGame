@@ -24,15 +24,14 @@ public class Map extends JFrame implements KeyListener {
     private int release = 0;
     private boolean pause = false;
     private Balloon bullet, secondBullet;
-    private Image yellowBullet, purpleBullet, redBullet, greenBullet, blueBullet;
-    private InputStream stream;
+    private Image purpleBullet, redBullet, greenBullet, blueBullet;
     private int width, height, mode;
 
-    Map(String plikStartowy) throws IOException {
-        this.width = util.getMapWidth(plikStartowy);
-        this.height = util.getMapHeight(plikStartowy);
-        this.mode = util.getMapMode(plikStartowy);
-        this.displayedBalloons = util.getBalloons(plikStartowy);
+    Map(String pathToMapFile) throws IOException {
+        this.width = util.getMapWidth(pathToMapFile);
+        this.height = util.getMapHeight(pathToMapFile);
+        this.mode = util.getMapMode(pathToMapFile);
+        this.displayedBalloons = util.getBalloons(pathToMapFile);
         setSize(this.width * 60, this.height * 60);
         setTitle("Bubble Hit");
         setLocationRelativeTo(null);
@@ -43,9 +42,7 @@ public class Map extends JFrame implements KeyListener {
         this.bullets.add(this.secondBullet);
         this.bullets.add(this.bullet);
 
-        //stream = getClass().getResourceAsStream("/img/yellow.png");
-        //yellowBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
-        stream = getClass().getResourceAsStream("/img/purple.png");
+        InputStream stream = getClass().getResourceAsStream("/img/purple.png");
         purpleBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
         stream = getClass().getResourceAsStream("/img/red.png");
         redBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
@@ -63,7 +60,7 @@ public class Map extends JFrame implements KeyListener {
                     Map.this.repaint();
                 }
                 if (!game.checkStatus(Map.this.displayedBalloons)) {
-                    game.ending(Map.this.score, util.getMapMode(plikStartowy));
+                    game.ending(Map.this.score, util.getMapMode(pathToMapFile));
                     Map.this.tim.stop();
                     Map.this.dispose();
                 }
@@ -178,7 +175,7 @@ public class Map extends JFrame implements KeyListener {
                         variablen = 100;
                     if (displayedBalloon.colour == Colour.BLUE)
                         variablec = 1000;
-                    if (displayedBalloon.colour == Colour.YELLOW)
+                    if (displayedBalloon.colour == Colour.PURPLE)
                         variablezo = 10000;
                 }
                 variableq = variablez + variablen + variablec + variablezo;
@@ -225,7 +222,7 @@ public class Map extends JFrame implements KeyListener {
                     variablen = 100;
                 if (displayedBalloon.colour == Colour.BLUE)
                     variablec = 1000;
-                if (displayedBalloon.colour == Colour.YELLOW)
+                if (displayedBalloon.colour == Colour.PURPLE)
                     variablezo = 10000;
             }
             variableq = variablez + variablen + variablec + variablezo;
@@ -328,24 +325,19 @@ public class Map extends JFrame implements KeyListener {
 
         for (Balloon db : this.displayedBalloons) {
             switch (db.getColour()) {
-                case YELLOW:
-                    g.setColor(Color.YELLOW);
-                    db.setBallonImage(yellowBullet);
+                case PURPLE:
+                    db.setBallonImage(purpleBullet);
                     break;
                 case RED:
-                    g.setColor(Color.RED);
                     db.setBallonImage(redBullet);
                     break;
                 case GREEN:
-                    g.setColor(Color.GREEN);
                     db.setBallonImage(greenBullet);
                     break;
                 case BLUE:
-                    g.setColor(Color.BLUE);
                     db.setBallonImage(blueBullet);
                     break;
                 default:
-                    g.setColor(Color.WHITE);
                     break;
             }
             if (g.getColor() != Color.WHITE)
@@ -353,20 +345,16 @@ public class Map extends JFrame implements KeyListener {
         }
         for (Balloon p : this.bullets) {
             switch (p.getColour()) {
-                case YELLOW:
-                    g.setColor(Color.YELLOW);
-                    p.setBallonImage(yellowBullet);
+                case PURPLE:
+                    p.setBallonImage(purpleBullet);
                     break;
                 case RED:
-                    g.setColor(Color.RED);
                     p.setBallonImage(redBullet);
                     break;
                 case GREEN:
-                    g.setColor(Color.GREEN);
                     p.setBallonImage(greenBullet);
                     break;
                 case BLUE:
-                    g.setColor(Color.BLUE);
                     p.setBallonImage(blueBullet);
                     break;
                 default:

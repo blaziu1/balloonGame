@@ -129,7 +129,7 @@ class Util {
                 colour = Colour.BLUE;
                 break;
             case 4:
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
                 break;
             default:
                 colour = Colour.EMPTY;
@@ -142,7 +142,7 @@ class Util {
         if (ColourCode == 1000)
             colour = Colour.BLUE;
         if (ColourCode == 10000)
-            colour = Colour.YELLOW;
+            colour = Colour.PURPLE;
         if (ColourCode == 110) {
             Random rand = new Random();
             ColourCode = rand.nextInt(2);
@@ -165,7 +165,7 @@ class Util {
             if (ColourCode == 0)
                 colour = Colour.GREEN;
             if (ColourCode == 1)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
         }
         if (ColourCode == 1100) {
             Random rand = new Random();
@@ -181,7 +181,7 @@ class Util {
             if (ColourCode == 0)
                 colour = Colour.RED;
             if (ColourCode == 1)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
         }
         if (ColourCode == 11000) {
             Random rand = new Random();
@@ -189,7 +189,7 @@ class Util {
             if (ColourCode == 0)
                 colour = Colour.BLUE;
             if (ColourCode == 1)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
         }
         if (ColourCode == 1110) {
             Random rand = new Random();
@@ -209,13 +209,13 @@ class Util {
             if (ColourCode == 1)
                 colour = Colour.RED;
             if (ColourCode == 2)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
         }
         if (ColourCode == 11100) {
             Random rand = new Random();
             ColourCode = rand.nextInt(3);
             if (ColourCode == 0)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
             if (ColourCode == 1)
                 colour = Colour.RED;
             if (ColourCode == 2)
@@ -227,7 +227,7 @@ class Util {
             if (ColourCode == 0)
                 colour = Colour.GREEN;
             if (ColourCode == 1)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
             if (ColourCode == 2)
                 colour = Colour.BLUE;
         }
@@ -237,7 +237,7 @@ class Util {
             if (ColourCode == 0)
                 colour = Colour.GREEN;
             if (ColourCode == 1)
-                colour = Colour.YELLOW;
+                colour = Colour.PURPLE;
             if (ColourCode == 2)
                 colour = Colour.BLUE;
             if (ColourCode == 3)
