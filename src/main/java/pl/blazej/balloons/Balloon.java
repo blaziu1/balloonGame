@@ -4,13 +4,16 @@ import java.awt.Image;
 
 class Balloon {
     Colour colour;
-
     private Image ballonImage;
+    private int xCoordinate, yCoordinate;
 
-    private int xCoordinate;
-
-    private int yCoordinate;
-
+    /**
+     * Balloon class constructor.
+     * Creates a balloon giving it the color and coordinates on the map
+     * @param colour colour of the ballooon.
+     * @param x Coordinate x.
+     * @param y Coordinate y.
+     */
     Balloon(Colour colour, int x, int y) {
         this.colour = colour;
         this.xCoordinate = x;

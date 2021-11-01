@@ -9,6 +9,9 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+/**
+ * Responsible for displaying the window with the players have obtained the best score.
+ */
 class HighScore extends JFrame {
     HighScore() throws FileNotFoundException {
         super("Highest scores");

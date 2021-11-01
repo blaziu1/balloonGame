@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 
+/**
+ * Handles everything that happens on the map during the game
+ */
 public class Map extends JFrame implements KeyListener {
     private double indirectx, indirecty, length;
     private double totShift = 10.0D;
@@ -27,8 +30,16 @@ public class Map extends JFrame implements KeyListener {
     private Image purpleBullet, redBullet, greenBullet, blueBullet;
     private int width, height, mode;
 
+
+    /**
+     * The constructor creates a game window based on a text file loaded in the Util class.
+     * Creates a bullet in the center of the map at the bottom and a second bullet at the bottom right.
+     * The player shoots with the first bullet, the second will then take the place of the first.
+     * The balloons are in one container and the bullets in the other
+     * @param pathToMapFile Path to text file from which the map is loaded.
+     * @throws IOException When no text file is found.
+     */
     Map(String pathToMapFile) throws IOException {
-        System.out.println("Jestem w konstruktorze Map");
         this.height = util.getMapHeight(pathToMapFile);
         this.width = util.getMapWidth(pathToMapFile);
 
@@ -54,6 +65,10 @@ public class Map extends JFrame implements KeyListener {
         blueBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        /**
+         * Animates balloons on the map.
+         * Checks whether the game is over or whether the balloon coordinates should be lowered.
+         */
         class TimeListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if (!Map.this.stop) {
@@ -132,6 +147,12 @@ public class Map extends JFrame implements KeyListener {
         });
     }
 
+    /**
+     * Changes the coordinates of the bullet on the map from its launch to its stop.
+     * If a bullet hits a balloon or the top wall, it is stopped, evened, removed from the missile container and placed in the balloon container.
+     * The second bullet then becomes the first, and a new one is drawn in place of the second.
+     * If the bullet hits a group of two or more balloons of the same color, they disappear from the map.
+     */
     private void movement() {
         int a = (this.width - 1) * 60;
         if (this.bullets.lastElement().getxCoordinate() >= 0 && (this.bullets.lastElement()).getxCoordinate() <= a) {
@@ -241,6 +262,11 @@ public class Map extends JFrame implements KeyListener {
         }
     }
 
+    /**
+     * Checks whether the bullet hit any balloon placed on the map.
+     * @param Balloons Container of balloons displayed on the map.
+     * @return false if a cartridge is encountered a balloon in its path, true otherwise.
+     */
     private boolean isClear(Vector<Balloon> Balloons) {
         for (Balloon b : Balloons) {
             if (Math.sqrt(Math.pow((b.getxCoordinate() * 60 - (this.bullets.lastElement()).getxCoordinate()), 2.0D) + Math.pow(Math.abs(b.getyCoordinate() * 60 - (this.bullets.lastElement()).getyCoordinate()), 2.0D)) <= 52.0D)
@@ -258,6 +284,9 @@ public class Map extends JFrame implements KeyListener {
         this.pause = c == 'p';
     }
 
+    /**
+     * Responsible for the disappearance of the balloons if the bullet hits a group of two or more balloons of the same color.
+     */
     private void disappearing() {
         int[] indexArray = new int[150];
         for (int p = 0; p < 150; p++)
@@ -310,6 +339,10 @@ public class Map extends JFrame implements KeyListener {
         this.score += scoreCounter;
     }
 
+    /**
+     * Draws all ballons and bullets in containers in the correct places on the map.
+     * @param g
+     */
     private void paintComponent(Graphics g){
         super.paintComponents(g);
         g.setColor(Color.WHITE);
@@ -370,6 +403,10 @@ public class Map extends JFrame implements KeyListener {
         setFocusable(true);
     }
 
+    /**
+     * Responsible for double buffering and scaling of graphic components
+     * @param g
+     */
     public void paint(Graphics g) {
         BufferedImage dbImage = new BufferedImage(this.width * 60, this.height * 60, 2);
         Graphics dbg = dbImage.getGraphics();

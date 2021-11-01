@@ -14,11 +14,22 @@ import javax.swing.JTextField;
 class Game {
     private static int map_num = 0;
 
+
+    /**
+     * Responsible for lowering the balloons on the map.
+     * @param Balloons A container containing all balloons to be displayed.
+     * @param descend Says how much ballons are to go down.
+     */
     void descendBallons(Vector<Balloon> Balloons, int descend) {
         for (Balloon b : Balloons)
             b.setyCoordinate(b.getyCoordinate() + descend);
     }
 
+    /**
+     * Adds balloons loaded from a file to the board.
+     * Triggered in arcade mode after the balloons have been lowered.
+     * @return A container with added ballons
+     */
     Vector<Balloon> addBallons() {
         Vector balloons = new Vector();
         Util util = new Util();
@@ -30,6 +41,12 @@ class Game {
         }
     }
 
+
+    /**
+     * Checks if any balloon is at the height of the bullet on the map.
+     * @param Balloons Container with all balloons displayed.
+     * @return true if the ballons are above the bullet, false if any is at the same height.
+     */
     boolean checkStatus(Vector<Balloon> Balloons) {
         for (Balloon b : Balloons) {
             if (b.getyCoordinate() >= 13)
@@ -38,6 +55,11 @@ class Game {
         return true;
     }
 
+    /**
+     * Responsible for game's behavior after removing all the balloons.
+     * After removing all balloons, a new map is created from the text file.
+     * If a player has cleared ballons on all available maps, a message is displayed stating that he has won.
+     */
     void nextLevel() {
         String[] filenames = {"/maps/secondMap.txt", "/maps/thirdMap.txt"};
         try {
@@ -60,6 +82,12 @@ class Game {
         }
     }
 
+    /**
+     * Responsible for the behavior of the game after a defeat.
+     * A defeat message is displayed in which the player enters his name.
+     * If the name was entered and the player's score is better than the results in the highscore.txt file, it is entered there.
+     * @param score The result obtained by the player during the game.
+     */
     void ending(int score, int mode) {
         String[] options = { "OK" };
         if (mode == 0) {
