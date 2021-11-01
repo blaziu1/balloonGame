@@ -17,7 +17,7 @@ public class Map extends JFrame implements KeyListener {
     private Timer tim;
     private Util util = new Util();
     private Vector<Balloon> bullets = new Vector<>();
-    private Vector<Balloon> displayedBalloons = new Vector<>();
+    private Vector<Balloon> displayedBalloons;
     private int score = 0;
     private int counter = 0;
     private int counter2 = 1;
@@ -54,7 +54,7 @@ public class Map extends JFrame implements KeyListener {
         stream = getClass().getResourceAsStream("/img/blue.png");
         blueBullet = (new ImageIcon(ImageIO.read(stream))).getImage();
 
-        setDefaultCloseOperation(0);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         class TimeListener implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if (!Map.this.stop) {
@@ -71,8 +71,7 @@ public class Map extends JFrame implements KeyListener {
                     if (Map.this.mode == 0) {
                         game.descendBallons(Map.this.displayedBalloons, util.getDESCENDARC());
                         Map.this.counter = 0;
-                        for (int i = 0; i < game.addBallons().size(); i++)
-                            Map.this.displayedBalloons.add(game.addBallons().get(i));
+                        Map.this.displayedBalloons.addAll(game.addBallons());
                     } else {
                         game.descendBallons(Map.this.displayedBalloons, util.getDESCENDFAB());
                     }
@@ -82,7 +81,7 @@ public class Map extends JFrame implements KeyListener {
                     Map.this.dispose();
                 }
             }
-        };
+        }
         ActionListener listener = new TimeListener();
         int time = 5;
         this.tim = new Timer(time, listener);
@@ -167,19 +166,19 @@ public class Map extends JFrame implements KeyListener {
                 (this.bullets.lastElement()).setxCoordinate((this.bullets.lastElement()).getxCoordinate() / 60);
                 (this.bullets.lastElement()).setyCoordinate((this.bullets.lastElement()).getyCoordinate() / 60);
                 this.displayedBalloons.add(this.bullets.lastElement());
-                int variableq = 0;
+                int variableq;
                 int variablez = 0;
                 int variablen = 0;
                 int variablec = 0;
                 int variablezo = 0;
-                for (int k = 0; k < this.displayedBalloons.size(); k++) {
-                    if ((this.displayedBalloons.get(k)).colour == Colour.GREEN)
+                for (Balloon displayedBalloon : this.displayedBalloons) {
+                    if (displayedBalloon.colour == Colour.GREEN)
                         variablez = 10;
-                    if ((this.displayedBalloons.get(k)).colour == Colour.RED)
+                    if (displayedBalloon.colour == Colour.RED)
                         variablen = 100;
-                    if ((this.displayedBalloons.get(k)).colour == Colour.BLUE)
+                    if (displayedBalloon.colour == Colour.BLUE)
                         variablec = 1000;
-                    if ((this.displayedBalloons.get(k)).colour == Colour.YELLOW)
+                    if (displayedBalloon.colour == Colour.YELLOW)
                         variablezo = 10000;
                 }
                 variableq = variablez + variablen + variablec + variablezo;
@@ -214,19 +213,19 @@ public class Map extends JFrame implements KeyListener {
             (this.bullets.lastElement()).setxCoordinate((this.bullets.lastElement()).getxCoordinate() / 60);
             (this.bullets.lastElement()).setyCoordinate((this.bullets.lastElement()).getyCoordinate() / 60);
             this.displayedBalloons.add(this.bullets.lastElement());
-            int variableq = 0;
+            int variableq;
             int variablez = 0;
             int variablen = 0;
             int variablec = 0;
             int variablezo = 0;
-            for (int k = 0; k < this.displayedBalloons.size(); k++) {
-                if ((this.displayedBalloons.get(k)).colour == Colour.GREEN)
+            for (Balloon displayedBalloon : this.displayedBalloons) {
+                if (displayedBalloon.colour == Colour.GREEN)
                     variablez = 10;
-                if ((this.displayedBalloons.get(k)).colour == Colour.RED)
+                if (displayedBalloon.colour == Colour.RED)
                     variablen = 100;
-                if ((this.displayedBalloons.get(k)).colour == Colour.BLUE)
+                if (displayedBalloon.colour == Colour.BLUE)
                     variablec = 1000;
-                if ((this.displayedBalloons.get(k)).colour == Colour.YELLOW)
+                if (displayedBalloon.colour == Colour.YELLOW)
                     variablezo = 10000;
             }
             variableq = variablez + variablen + variablec + variablezo;
@@ -257,11 +256,7 @@ public class Map extends JFrame implements KeyListener {
 
     public void keyTyped(KeyEvent evt) {
         char c = evt.getKeyChar();
-        if (c == 'p') {
-            this.pause = true;
-        } else {
-            this.pause = false;
-        }
+        this.pause = c == 'p';
     }
 
     private void disappearing() {
